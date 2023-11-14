@@ -10,4 +10,9 @@ def index(request):
 
 
 def about(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        phone = request.POST['phone']
+        contact = [{'name': name, 'phone': phone}]
+        print(contact)
     return render(request, 'main_app/about.html')

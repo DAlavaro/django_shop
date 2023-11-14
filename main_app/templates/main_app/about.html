@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>E-mail: shop@candlewax.ru</h1>
+<h1>E-mail: shop@candlewax.ru</h1>
+<br>
+<form method="post">
+    {% csrf_token %}
+    <h1>Форма для обратной связи</h1>
+    <h2>Имя Отчество</h2>
+    <input type="tel" name="name"/><br>
+    <h2>Телефон в формате +7(xxx) xxx-xx-xx </h2>
+    <input type="text" name="phone" /><br>
+    <input type="submit" value="Отправить" />
+</form>
 </body>
 </html>
