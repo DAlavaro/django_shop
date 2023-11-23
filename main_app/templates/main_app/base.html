@@ -30,8 +30,36 @@
         </div>
     </nav>
 </header>
-<section>
 
+<section>
+    <div class="container-fluid">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-3 text-start">
+                    <ul class="nav flex-column sidebar">
+                        <li class="nav-item">
+                            <a class="nav-link active align-right" aria-current="page" href="#">Каталог</a>
+                        </li>
+
+                        {% for object in menu_catalog %}
+                            <li class="nav-item">
+                                <a class="nav-link active align-right" aria-current="page"
+                                   href="#">{{ object.title }}</a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+                <div class="col-9">
+                    <h1>{{ title }}</h1>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+            </div>
+        </div>
+    </div>
 </section>
 <footer>
 

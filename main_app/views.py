@@ -8,11 +8,18 @@ menu = [
     {'title': 'Доставка', 'url_name': 'delivery'},
     {'title': 'Отзывы', 'url_name': 'reviews'},
 ]
+
+menu_catalog = [
+    {'title': 'Узорчатые Свечи', 'url_name': 'figured'},
+    {'title': 'Рождественские свечи', 'url_name': 'сhristmas'},
+    {'title': 'Пасхальные свечи', 'url_name': 'easter'},
+]
 def index(request):
     context = {
         'object_list': Product.objects.all(),
         'title': 'О сайте',
         'menu': menu,
+        'menu_catalog': menu_catalog
     }
     return render(request, 'main_app/index.html', context=context)
 
