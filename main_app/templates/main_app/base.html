@@ -11,7 +11,7 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="{% url 'main_app:index' %}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,7 +21,7 @@
 
                     {% for object in menu %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">{{ object.title }}</a>
+                            <a class="nav-link active" aria-current="page" href="{{ object.url_name }}">{{ object.title }}</a>
                         </li>
                     {% endfor %}
 
@@ -44,7 +44,7 @@
                         {% for object in menu_catalog %}
                             <li class="nav-item">
                                 <a class="nav-link active align-right" aria-current="page"
-                                   href="#">{{ object.title }}</a>
+                                   href="#">{{ object.name }}</a>
                             </li>
                         {% endfor %}
 

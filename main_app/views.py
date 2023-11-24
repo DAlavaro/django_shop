@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from main_app.models import Product
+from main_app.models import Product, Category
 
 menu = [
     {'title': 'Инфо', 'url_name': 'info'},
@@ -9,25 +9,41 @@ menu = [
     {'title': 'Отзывы', 'url_name': 'reviews'},
 ]
 
-menu_catalog = [
-    {'title': 'Узорчатые Свечи', 'url_name': 'figured'},
-    {'title': 'Рождественские свечи', 'url_name': 'сhristmas'},
-    {'title': 'Пасхальные свечи', 'url_name': 'easter'},
-]
+
 def index(request):
     context = {
         'object_list': Product.objects.all(),
-        'title': 'О сайте',
+        'menu_catalog': Category.objects.all(),
+        'title': 'Главная страница',
         'menu': menu,
-        'menu_catalog': menu_catalog
     }
     return render(request, 'main_app/index.html', context=context)
 
 
+def info(request):
+    context = {
+        'title': 'Почему восковая свеча, а не парафиновая?',
+        'menu': menu,
+    }
+    return render(request, 'main_app/info.html', context=context)
+
 def about(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        phone = request.POST['phone']
-        contact = [{'name': name, 'phone': phone}]
-        print(contact)
-    return render(request, 'main_app/about.html')
+    context = {
+        'title': 'Мастерская "Восковая свеча"',
+        'menu': menu,
+    }
+    return render(request, 'main_app/about.html', context=context)
+
+def delivery(request):
+    context = {
+        'title': 'Оплата и доставка',
+        'menu': menu,
+    }
+    return render(request, 'main_app/delivery.html', context=context)
+
+def reviews(request):
+    context = {
+        'title': 'Отзывы',
+        'menu': menu,
+    }
+    return render(request, 'main_app/reviews.html', context=context)
