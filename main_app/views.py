@@ -22,6 +22,8 @@ def index(request):
 
 def info(request):
     context = {
+        'object_list': Product.objects.all(),
+        'menu_catalog': Category.objects.all(),
         'title': 'Почему восковая свеча, а не парафиновая?',
         'menu': menu,
     }
@@ -29,6 +31,8 @@ def info(request):
 
 def about(request):
     context = {
+        'object_list': Product.objects.all(),
+        'menu_catalog': Category.objects.all(),
         'title': 'Мастерская "Восковая свеча"',
         'menu': menu,
     }
@@ -36,6 +40,8 @@ def about(request):
 
 def delivery(request):
     context = {
+        'object_list': Product.objects.all(),
+        'menu_catalog': Category.objects.all(),
         'title': 'Оплата и доставка',
         'menu': menu,
     }
@@ -43,6 +49,8 @@ def delivery(request):
 
 def reviews(request):
     context = {
+        'object_list': Product.objects.all(),
+        'menu_catalog': Category.objects.all(),
         'title': 'Отзывы',
         'menu': menu,
     }

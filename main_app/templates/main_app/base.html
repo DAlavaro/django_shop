@@ -19,9 +19,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
 
-                    {% for object in menu %}
+                    {% for m in menu%}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ object.url_name }}">{{ object.title }}</a>
+                            <a class="nav-link active" aria-current="page" href="{% url 'main_app:'|add:m.url_name %}">{{ m.title }}</a>
                         </li>
                     {% endfor %}
 
@@ -38,7 +38,7 @@
                 <div class="col-3 text-start">
                     <ul class="nav flex-column sidebar">
                         <li class="nav-item">
-                            <a class="nav-link active align-right" aria-current="page" href="#">Каталог</a>
+                            <class="nav-link active align-right" aria-current="page">Каталог</a>
                         </li>
 
                         {% for object in menu_catalog %}
