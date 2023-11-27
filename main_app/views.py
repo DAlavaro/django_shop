@@ -19,6 +19,15 @@ def index(request):
     }
     return render(request, 'main_app/index.html', context=context)
 
+def candles(request, pk):
+    context = {
+        'object_list': Product.objects.filter(category_id=pk),
+        'menu_catalog': Category.objects.all(),
+        'title': 'Главная страница',
+        'menu': menu,
+    }
+    return render(request, 'main_app/candles.html', context=context)
+
 
 def info(request):
     context = {
