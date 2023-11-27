@@ -28,6 +28,14 @@ def candles(request, pk):
     }
     return render(request, 'main_app/candles.html', context=context)
 
+def candle(request, pk):
+    context = {
+        'object_list': Product.objects.filter(name_id=pk),
+        'menu_catalog': Category.objects.all(),
+        'title': 'Главная страница',
+        'menu': menu,
+    }
+    return render(request, 'main_app/candle.html', context=context)
 
 def info(request):
     context = {
