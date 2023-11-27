@@ -2,12 +2,15 @@
 {% block content %}
     <div class="container text-center">
         <div class="row">
-{#            {% for object in object_list|slice:":1" %}#}
-{#                <h1>{{ object.category }}</h1>#}
-{#            {% endfor %}#}
-            {% for object in object_list %}
-                {% include 'main_app/includes/inc_category.html' %}
-            {% endfor %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="/media/{{ object.photo }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.descriptions }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

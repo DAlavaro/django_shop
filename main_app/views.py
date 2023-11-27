@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from main_app.models import Product, Category
 
@@ -29,11 +29,14 @@ def candles(request, pk):
     return render(request, 'main_app/candles.html', context=context)
 
 def candle(request, pk):
+    candle = get_object_or_404(Product, id=pk)
     context = {
-        'object_list': Product.objects.filter(name_id=pk),
+        'object': candle,
+        'object_list': Product.objects.filter(category_id=pk),
         'menu_catalog': Category.objects.all(),
         'title': 'Главная страница',
         'menu': menu,
+        'cat_selected': candle.category_id,
     }
     return render(request, 'main_app/candle.html', context=context)
 

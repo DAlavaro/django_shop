@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ object.name }}</h5>
             <p class="card-text">{{ object.descriptions }}</p>
-            <a href="{% url 'main_app:candle' object.pk %}" class="btn btn-primary">Подробнее</a>
+            <a href="{% url 'main_app:candle' object.id %}" class="btn btn-primary">Подробнее</a>
         </div>
     </div>
 </div>
