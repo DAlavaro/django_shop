@@ -1,0 +1,12 @@
+{% load my_tags %}
+<div class="col">
+    <div class="card" style="width: 18rem;">
+{#        <img src="/media/{{ object.photo }}" class="card-img-top" alt="...">#}
+        <img src="{{ object.photo|mymedia }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ object.name }}</h5>
+            <p class="card-text">{{ object.descriptions|truncatechars:100 }}</p>
+            <a href="{% url 'main_app:candle' object.id %}" class="btn btn-primary">Подробнее</a>
+        </div>
+    </div>
+</div>
