@@ -9,7 +9,6 @@ menu = [
     {'title': 'Отзывы', 'url_name': 'reviews'},
 ]
 
-
 def index(request):
     context = {
         'object_list': Product.objects.all(),
