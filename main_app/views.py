@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
 
 from main_app.models import Product, Category
 
@@ -10,14 +11,19 @@ menu = [
 ]
 
 
-def index(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Главная страница',
-        'menu': menu,
-    }
-    return render(request, 'main_app/index.html', context=context)
+class MainListView(ListView):
+    model = Product
+    template_name = 'main_app/index.html'
+    context_object_name = 'object_list'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Главная страница'
+        context['menu'] = menu
+        return context
+
+
 
 def candles(request, pk):
     context = {
@@ -40,38 +46,50 @@ def candle(request, pk):
     }
     return render(request, 'main_app/candle.html', context=context)
 
-def info(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Почему восковая свеча, а не парафиновая?',
-        'menu': menu,
-    }
-    return render(request, 'main_app/info.html', context=context)
 
-def about(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Мастерская "Восковая свеча"',
-        'menu': menu,
-    }
-    return render(request, 'main_app/about.html', context=context)
+class InfoListView(ListView):
+    model = Product
+    template_name = 'main_app/info.html'
 
-def delivery(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Оплата и доставка',
-        'menu': menu,
-    }
-    return render(request, 'main_app/delivery.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Почему восковая свеча, а не парафиновая?'
+        context['menu'] = menu
+        return context
 
-def reviews(request):
-    context = {
-        'object_list': Product.objects.all(),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Отзывы',
-        'menu': menu,
-    }
-    return render(request, 'main_app/reviews.html', context=context)
+
+class AboutListView(ListView):
+    model = Product
+    template_name = 'main_app/about.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Мастерская "Восковая свеча"'
+        context['menu'] = menu
+        return context
+
+
+class DeliveryListView(ListView):
+    model = Product
+    template_name = 'main_app/delivery.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Оплата и доставка'
+        context['menu'] = menu
+        return context
+
+
+class ReviewsListView(ListView):
+    model = Product
+    template_name = 'main_app/reviews.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Отзывы'
+        context['menu'] = menu
+        return context
