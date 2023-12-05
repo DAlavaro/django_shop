@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from main_app.models import Product, Category
 
@@ -15,6 +15,10 @@ class MainListView(ListView):
     model = Product
     template_name = 'main_app/index.html'
     context_object_name = 'object_list'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(is_active=True)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -34,17 +38,28 @@ def candles(request, pk):
     }
     return render(request, 'main_app/candles.html', context=context)
 
-def candle(request, pk):
-    candle = get_object_or_404(Product, id=pk)
-    context = {
-        'object': candle,
-        'object_list': Product.objects.filter(category_id=pk),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Главная страница',
-        'menu': menu,
-        'cat_selected': candle.category_id,
-    }
-    return render(request, 'main_app/candle.html', context=context)
+
+class CandlesDetailView(DetailView):
+    model = Product
+    template_name = 'main_app/candle.html'
+
+    def get_object(self, qweryset=None):
+        self.object = super().get_object(
+            queryset=qweryset
+        )
+        self.object.view_count += 1
+        self.object.save()
+        return self.object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Product.objects.filter(category_id=self.kwargs['pk'])
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Главная страница'
+        context['menu'] = menu
+        context['cat_selected'] = self.object.category_id
+        return context
+
 
 
 class InfoListView(ListView):
