@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from main_app.models import Product, Category
 
@@ -23,29 +23,46 @@ class MainListView(ListView):
         context['menu'] = menu
         return context
 
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
 
 
-def candles(request, pk):
-    context = {
-        'object_list': Product.objects.filter(category_id=pk),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Главная страница',
-        'menu': menu,
-    }
-    return render(request, 'main_app/candles.html', context=context)
+class CandlesListView(ListView):
+    model = Product
+    template_name = 'main_app/candles.html'
+    context_object_name = 'object_list'
 
-def candle(request, pk):
-    candle = get_object_or_404(Product, id=pk)
-    context = {
-        'object': candle,
-        'object_list': Product.objects.filter(category_id=pk),
-        'menu_catalog': Category.objects.all(),
-        'title': 'Главная страница',
-        'menu': menu,
-        'cat_selected': candle.category_id,
-    }
-    return render(request, 'main_app/candle.html', context=context)
+    def get_queryset(self):
+        category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
+        return Product.objects.filter(category=category, is_active=True)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Главная страница'
+        context['menu'] = menu
+        return context
+
+class CandleDetailView(DetailView):
+    model = Product
+    template_name = 'main_app/candle.html'
+    context_object_name = 'object'
+
+    def get_object(self, **kwargs):
+        slug = self.kwargs['product_slug']
+        product = get_object_or_404(Product, slug=slug)
+        product.view_count += 1
+        product.save()
+        return product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object_list'] = Product.objects.filter(category=context['object'].category)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Главная страница'
+        context['menu'] = menu
+        context['cat_selected'] = self.object.category_id
+        return context
 
 class InfoListView(ListView):
     model = Product

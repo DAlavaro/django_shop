@@ -9,6 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'is_active', 'date', 'last_date')
     list_filter = ('category',)
     search_fields = ('name', 'descriptions', )
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Category)
@@ -16,3 +17,4 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     search_fields = ('name', 'description')
+    prepopulated_fields = {'slug': ('name',)}
