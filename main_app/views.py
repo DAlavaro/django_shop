@@ -16,10 +16,6 @@ class MainListView(ListView):
     template_name = 'main_app/index.html'
     context_object_name = 'object_list'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(is_active=True)
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
@@ -27,39 +23,74 @@ class MainListView(ListView):
         context['menu'] = menu
         return context
 
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True)
 
 
-def candles(request, pk):
+# class CandlesListView(ListView):
+#     model = Product
+#     template_name = 'main_app/candles.html'
+#     context_object_name = 'object_list'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['menu_catalog'] = Category.objects.filter(is_active=True)
+#         context['title'] = 'Главная страница'
+#         context['menu'] = menu
+#         return context
+#
+#     def get_queryset(self):
+#         slug = self.kwargs.get('slug')
+#         queryset = super().get_queryset()
+#         if slug:
+#             queryset = queryset.filter(category__slug=slug, is_active=True)
+#         return queryset
+
+
+def candles(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
     context = {
-        'object_list': Product.objects.filter(category_id=pk),
+        'object_list': Product.objects.filter(category=category),
         'menu_catalog': Category.objects.all(),
-        'title': 'Главная страница',
+        'title': category.name,
         'menu': menu,
     }
     return render(request, 'main_app/candles.html', context=context)
 
 
-class CandlesDetailView(DetailView):
+class CandleDetailView(DetailView):
     model = Product
     template_name = 'main_app/candle.html'
+    context_object_name = 'object'
 
-    def get_object(self, qweryset=None):
-        self.object = super().get_object(
-            queryset=qweryset
-        )
-        self.object.view_count += 1
-        self.object.save()
-        return self.object
+    def get_object(self, **kwargs):
+        slug = self.kwargs['product_slug']
+        product = get_object_or_404(Product, slug=slug)
+        product.view_count += 1
+        product.save()
+        return product
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['object_list'] = Product.objects.filter(category_id=self.kwargs['pk'])
+        context['object_list'] = Product.objects.filter(category=context['object'].category)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Главная страница'
         context['menu'] = menu
         context['cat_selected'] = self.object.category_id
         return context
 
+
+# def candle(request, product_slug):
+#     product = get_object_or_404(Product, slug=product_slug)
+#     context = {
+#         'object': product,
+#         'object_list': Product.objects.filter(product=product),
+#         'menu_catalog': Category.objects.all(),
+#         'title': product.name,
+#         'menu': menu,
+#         'cat_selected': product.category_id,
+#     }
+#     return render(request, 'main_app/candle.html', context=context)
 
 
 class InfoListView(ListView):
