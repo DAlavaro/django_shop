@@ -1,7 +1,7 @@
 from django.urls import path
 
 from main_app.apps import MainAppConfig
-from main_app.views import MainListView, InfoListView, AboutListView, DeliveryListView, ReviewsListView, CandleDetailView, candles
+from main_app.views import MainListView, InfoListView, AboutListView, DeliveryListView, ReviewsListView, CandleDetailView, CandlesListView
 
 app_name = MainAppConfig.name
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('about/', AboutListView.as_view(), name='about'),
     path('delivery/', DeliveryListView.as_view(), name='delivery'),
     path('reviews/', ReviewsListView.as_view(), name='reviews'),
-    path('candles/<slug:category_slug>/', candles, name='candles'),
+    path('candles/<slug:category_slug>/', CandlesListView.as_view(), name='candles'),
     path('candle/<slug:product_slug>/', CandleDetailView.as_view(), name='candle'),
 
 ]

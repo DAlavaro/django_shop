@@ -27,36 +27,21 @@ class MainListView(ListView):
         return Product.objects.filter(is_active=True)
 
 
-# class CandlesListView(ListView):
-#     model = Product
-#     template_name = 'main_app/candles.html'
-#     context_object_name = 'object_list'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['menu_catalog'] = Category.objects.filter(is_active=True)
-#         context['title'] = 'Главная страница'
-#         context['menu'] = menu
-#         return context
-#
-#     def get_queryset(self):
-#         slug = self.kwargs.get('slug')
-#         queryset = super().get_queryset()
-#         if slug:
-#             queryset = queryset.filter(category__slug=slug, is_active=True)
-#         return queryset
+class CandlesListView(ListView):
+    model = Product
+    template_name = 'main_app/candles.html'
+    context_object_name = 'object_list'
 
+    def get_queryset(self):
+        category = get_object_or_404(Category, slug=self.kwargs['category_slug'])
+        return Product.objects.filter(category=category, is_active=True)
 
-def candles(request, category_slug):
-    category = get_object_or_404(Category, slug=category_slug)
-    context = {
-        'object_list': Product.objects.filter(category=category),
-        'menu_catalog': Category.objects.all(),
-        'title': category.name,
-        'menu': menu,
-    }
-    return render(request, 'main_app/candles.html', context=context)
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu_catalog'] = Category.objects.all()
+        context['title'] = 'Главная страница'
+        context['menu'] = menu
+        return context
 
 class CandleDetailView(DetailView):
     model = Product
@@ -78,20 +63,6 @@ class CandleDetailView(DetailView):
         context['menu'] = menu
         context['cat_selected'] = self.object.category_id
         return context
-
-
-# def candle(request, product_slug):
-#     product = get_object_or_404(Product, slug=product_slug)
-#     context = {
-#         'object': product,
-#         'object_list': Product.objects.filter(product=product),
-#         'menu_catalog': Category.objects.all(),
-#         'title': product.name,
-#         'menu': menu,
-#         'cat_selected': product.category_id,
-#     }
-#     return render(request, 'main_app/candle.html', context=context)
-
 
 class InfoListView(ListView):
     model = Product
