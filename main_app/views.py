@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.utils.text import slugify
+from django.views.generic import ListView, DetailView, CreateView
 
 from main_app.models import Product, Category
 
@@ -8,6 +10,7 @@ menu = [
     {'title': 'О нас', 'url_name': 'about'},
     {'title': 'Доставка', 'url_name': 'delivery'},
     {'title': 'Отзывы', 'url_name': 'reviews'},
+    {'title': 'Создать', 'url_name': 'create_candle'},
 ]
 
 
@@ -110,3 +113,9 @@ class ReviewsListView(ListView):
         context['title'] = 'Отзывы'
         context['menu'] = menu
         return context
+
+class CandleCreateView(CreateView):
+    model = Product
+    template_name = 'main_app/create_candle.html'
+    fields = ['name', 'descriptions', 'photo', 'category', 'price', 'is_active', 'slug']
+    success_url = reverse_lazy('main_app:index')
