@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from main_app.models import Product, Category
 
@@ -116,6 +116,13 @@ class ReviewsListView(ListView):
 
 class CandleCreateView(CreateView):
     model = Product
-    template_name = 'main_app/create_candle.html'
+    template_name = 'main_app/crud/create_candle.html'
     fields = ['name', 'descriptions', 'photo', 'category', 'price', 'is_active', 'slug']
     success_url = reverse_lazy('main_app:index')
+
+class CandleUpdateView(UpdateView):
+    model = Product
+    template_name = 'main_app/crud/create_candle.html'
+    fields = ['name', 'descriptions', 'photo', 'category', 'price', 'is_active', 'slug']
+    success_url = reverse_lazy('main_app:index')
+
