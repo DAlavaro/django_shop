@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
-
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from main_app.models import Product, Category
 
 menu = [
@@ -126,3 +125,7 @@ class CandleUpdateView(UpdateView):
     fields = ['name', 'descriptions', 'photo', 'category', 'price', 'is_active', 'slug']
     success_url = reverse_lazy('main_app:index')
 
+
+class CandleDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy('main_app:index')

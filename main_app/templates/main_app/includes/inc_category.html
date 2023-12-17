@@ -7,6 +7,7 @@
             <p class="card-text">{{ object.descriptions|truncatechars:100 }}</p>
             <a href="{% url 'main_app:candle' object.slug %}" class="btn btn-primary">Подробнее</a>
             <a href="{% url 'main_app:update_candle' object.slug %}" class="btn btn-primary">Изменить</a>
+            <a href="{% url 'main_app:delete_candle' object.slug %}" class="btn btn-primary">Удалить</a>
         </div>
     </div>
 </div>

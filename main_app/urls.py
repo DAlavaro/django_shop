@@ -2,7 +2,7 @@ from django.urls import path
 
 from main_app.apps import MainAppConfig
 from main_app.views import MainListView, InfoListView, AboutListView, DeliveryListView, ReviewsListView, \
-    CandleDetailView, CandlesListView, CandleCreateView, CandleUpdateView
+    CandleDetailView, CandlesListView, CandleCreateView, CandleUpdateView, CandleDeleteView
 
 app_name = MainAppConfig.name
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('candle/<slug:product_slug>/', CandleDetailView.as_view(), name='candle'),
     path('create/', CandleCreateView.as_view(), name='create_candle'),
     path('update/<slug:slug>/', CandleUpdateView.as_view(), name='update_candle'),
+    path('delete/<slug:slug>/', CandleDeleteView.as_view(), name='delete_candle')
 ]
