@@ -42,12 +42,12 @@
                             <a class="nav-link active align-right" aria-current="page">Каталог</a>
                         </li>
 
-{#                        {% for object in menu_catalog %}#}
-{#                            <li class="nav-item">#}
-{#                                <a class="nav-link active align-right" aria-current="page"#}
-{#                                   href="{% url 'main_app:candles' object.slug %}">{{ object.name }}</a>#}
-{#                            </li>#}
-{#                        {% endfor %}#}
+                        {% for object in menu_catalog %}
+                            <li class="nav-item">
+                                <a class="nav-link active align-right" aria-current="page"
+                                   href="{% url 'main_app:candles' object.slug %}">{{ object.name }}</a>
+                            </li>
+                        {% endfor %}
 
                     </ul>
                 </div>
