@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -27,7 +28,6 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ('name',)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название')
