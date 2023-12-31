@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView
 
+
 from reviews_app.models import Reviews
 
 
@@ -13,4 +14,3 @@ class ReviewsCreateView(CreateView):
 
 class ReviewsListView(ListView):
     model = Reviews
-

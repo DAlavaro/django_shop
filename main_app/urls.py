@@ -2,7 +2,7 @@ from django.urls import path
 
 from main_app.apps import MainAppConfig
 from main_app.views import MainListView, CandlesListView, CandleDetailView, InfoListView, AboutListView, \
-    DeliveryListView
+    DeliveryListView, ReviewsListView
 
 app_name = MainAppConfig.name
 
