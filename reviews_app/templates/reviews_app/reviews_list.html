@@ -1,0 +1,16 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+    <h1>{{ title }}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="text">
+                    Отзывы клиентов
+                    <div class="col-12 md-5">
+                <a class="btn btn-outline-primary" href="{% url 'reviews_app:create' %}">Добавить отзыв</a>
+            </div>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

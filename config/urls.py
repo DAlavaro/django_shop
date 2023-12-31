@@ -7,5 +7,6 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_app.urls', namespace='main_app')),
+    path('reviews/', include('reviews_app.urls', namespace='reviews_app')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
