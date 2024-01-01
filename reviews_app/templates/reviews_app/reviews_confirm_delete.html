@@ -8,14 +8,10 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-success">
-                                {% if object %}
-                                	Сохранить
-                                    {% else %}
-                                    Создать
-                                {% endif %}
+                            <p>Хотите удалить свой отзыв?</p>
+                            <button type="submit" class="btn btn-success">Удалить
                             </button>
+                            <a href="{% url 'reviews_app:list' %}" class="btn btn-warning">Отмена</a>
                         </form>
                     </div>
                 </div>

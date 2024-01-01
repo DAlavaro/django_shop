@@ -2,13 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from main_app.models import Product, Category
 from django.views.generic import ListView, DetailView
 
-menu = [
-    {'title': 'Инфо', 'url_name': 'info'},
-    {'title': 'О нас', 'url_name': 'about'},
-    {'title': 'Доставка', 'url_name': 'delivery'},
-    {'title': 'Отзывы', 'url_name': 'reviews'},
-]
-
 
 class MainListView(ListView):
     model = Product
@@ -17,7 +10,6 @@ class MainListView(ListView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Главная страница'
-        context['menu'] = menu
         return context
 
     def get_queryset(self):
@@ -35,7 +27,6 @@ class CandlesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = Category.objects.get(id=self.kwargs['pk'])
-        context['menu'] = menu
         return context
 
 
@@ -53,7 +44,6 @@ class CandleDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Главная страница'
-        context['menu'] = menu
         return context
 
 
@@ -65,7 +55,6 @@ class InfoListView(ListView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Почему восковая свеча, а не парафиновая?'
-        context['menu'] = menu
         return context
 
 
@@ -77,7 +66,6 @@ class AboutListView(ListView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Мастерская "Восковая свеча"'
-        context['menu'] = menu
         return context
 
 
@@ -89,17 +77,4 @@ class DeliveryListView(ListView):
         context = super().get_context_data(**kwargs)
         context['menu_catalog'] = Category.objects.all()
         context['title'] = 'Оплата и доставка'
-        context['menu'] = menu
-        return context
-
-
-class ReviewsListView(ListView):
-    model = Product
-    template_name = 'main_app/reviews.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu_catalog'] = Category.objects.all()
-        context['title'] = 'Отзывы'
-        context['menu'] = menu
         return context
