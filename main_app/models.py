@@ -14,6 +14,7 @@ class Product(models.Model):
     last_date = models.DateField(auto_now=True, verbose_name='дата последнего изменения')
 
     is_active = models.BooleanField(default=True, verbose_name='Опубликовано')
+    view_count = models.IntegerField(default=0, verbose_name='Количество просмотров')
 
     def __str__(self):
         return f'{self.name} {self.category}'

@@ -1,0 +1,25 @@
+{% extends 'main_app/base.html' %}
+{% block content %}
+
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h6 class="border-bottom pb-2 mb-0">Отзывы клиентов</h6>
+
+
+        <p class="pb-3 mb-0 small lh-sm border-bottom text-xl-start">
+            <strong class="d-block text-xl-start text-bg-primary">{{ reviews.title }}</strong>
+            {% if reviews.photo %}
+                <img src="/media/{{ reviews.photo }}" class="avatar" height="200" width="200">
+            {% else %}
+                <img src="/media/reviews/nobody.png" class="avatar" height="200" width="200">
+            {% endif %}<br>
+            {{ reviews.content }}
+        </p>
+        <small class="d-block text-end mt-3">
+            <a href="{% url 'reviews_app:list' %}">Назад</a>
+        </small>
+    </div>
+    <div class="card-footer">
+        Просмотры: {{ reviews.views_count }}
+    </div>
+
+{% endblock %}
