@@ -7,22 +7,23 @@ from dotenv import load_dotenv
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 from reviews_app.models import Reviews
 
 load_dotenv()
 
 @receiver(post_save, sender=Reviews)
 def post_signal(sender, instance, **kwargs):
-    if instance.view_count == 5:
+    if instance.views_count >= 100:
         send_email(instance)
 
-def send_email(product):
+def send_email(instance):
     sender = os.getenv('USERNAME')
     password = os.getenv('PASSWORD')
 
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    message = f"Количество просмотров товара {product.name} достигло 100!!!"
+    message = f"Количество просмотров отзыва {instance.title} достигло 100!!!"
     server.login(sender, password)
     msg = MIMEText(message)
     msg["Subject"] = "Candle_shop"
