@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <title>Title</title>
+    <title>{{ title }}</title>
 </head>
 <body>
 <header>
@@ -54,14 +54,19 @@
                 <div class="col-3 text-start">
                     <ul class="nav flex-column sidebar">
                         <li class="nav-item">
+<<<<<<< HEAD
                             <class
                             ="nav-link active align-right" aria-current="page">Каталог</a>
+=======
+
+                            <a class="nav-link active align-right" aria-current="page">Каталог</a>
+>>>>>>> main
                         </li>
 
                         {% for object in menu_catalog %}
                             <li class="nav-item">
                                 <a class="nav-link active align-right" aria-current="page"
-                                   href="{% url 'main_app:candles' object.pk %}">{{ object.name }}</a>
+                                   href="{% url 'main_app:candles' object.slug %}">{{ object.name }}</a>
                             </li>
                         {% endfor %}
 

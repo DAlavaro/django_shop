@@ -1,0 +1,18 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    <div class="coll-12">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="submite" class="btn btn-primary">Создать</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
